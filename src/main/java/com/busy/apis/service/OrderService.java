@@ -89,7 +89,7 @@ public class OrderService {
 	
 	
 	public PaymentIntent confirmarPagamento (String idPagamento) {
-		Stripe.apiKey = "sk_test_51KfuJYGeeZdvefSoi8pG652yIzsCZQP3FHsKsYAkLZvLdR7fRSXCF94ZqyOmUwWAnjcYQiSPt9m7zdZLN8IVs7UA00KP33kSwU";
+		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
 
 		try {
 

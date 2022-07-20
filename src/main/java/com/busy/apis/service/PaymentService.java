@@ -37,7 +37,7 @@ public class PaymentService {
 	
 	
 	public List<PaymentSource> listCards(Usuario usuario) {
-		Stripe.apiKey = "sk_test_51KfuJYGeeZdvefSoi8pG652yIzsCZQP3FHsKsYAkLZvLdR7fRSXCF94ZqyOmUwWAnjcYQiSPt9m7zdZLN8IVs7UA00KP33kSwU";
+		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
 		Identifier objIdentifier = identifierRepository.findByCpf(usuario.getCpf());
 		
 		try {
@@ -97,7 +97,7 @@ public class PaymentService {
 	}
 	
 	public String createSource(Token token, Usuario usuario) {
-		Stripe.apiKey = "sk_test_51KfuJYGeeZdvefSoi8pG652yIzsCZQP3FHsKsYAkLZvLdR7fRSXCF94ZqyOmUwWAnjcYQiSPt9m7zdZLN8IVs7UA00KP33kSwU";
+		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
 
 		Identifier objIdentifier = identifierRepository.findByCpf(usuario.getCpf());
 		
@@ -153,7 +153,7 @@ public class PaymentService {
 	}
 	
 	public String criarPagamento (Order obj, String cardChoosen) {
-		Stripe.apiKey = "sk_test_51KfuJYGeeZdvefSoi8pG652yIzsCZQP3FHsKsYAkLZvLdR7fRSXCF94ZqyOmUwWAnjcYQiSPt9m7zdZLN8IVs7UA00KP33kSwU";
+		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
 
 		Identifier objIdentifier = identifierRepository.findByCpf(obj.getUsuario().getCpf());
 		System.out.println("Pagamento: "+ obj.getPrecoServico());
@@ -217,7 +217,7 @@ public class PaymentService {
 	
 	
 	public String createCardToken (CardPay obj) {
-		Stripe.apiKey = "sk_test_51KfuJYGeeZdvefSoi8pG652yIzsCZQP3FHsKsYAkLZvLdR7fRSXCF94ZqyOmUwWAnjcYQiSPt9m7zdZLN8IVs7UA00KP33kSwU";
+		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
 
 		try {
 		Usuario usuario = usuarioRepository.findByCpf(obj.getCpf());
@@ -265,7 +265,7 @@ public class PaymentService {
 	
 
 	public Boolean deleteCard (CardPay obj) {
-		Stripe.apiKey = "sk_test_51KfuJYGeeZdvefSoi8pG652yIzsCZQP3FHsKsYAkLZvLdR7fRSXCF94ZqyOmUwWAnjcYQiSPt9m7zdZLN8IVs7UA00KP33kSwU";
+		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
 		Identifier objIdentifier = identifierRepository.findByCpf(obj.getCpf());
 		
 		try {
@@ -325,7 +325,7 @@ return deletedCard.getDeleted();
 	public String createCustomer (Usuario obj) {
 
 
-		Stripe.apiKey = "sk_test_51KfuJYGeeZdvefSoi8pG652yIzsCZQP3FHsKsYAkLZvLdR7fRSXCF94ZqyOmUwWAnjcYQiSPt9m7zdZLN8IVs7UA00KP33kSwU";
+		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
 
 		try {
 
@@ -381,7 +381,7 @@ return deletedCard.getDeleted();
 
 //
 //	public String createPaymentMethod (CardPay obj) {
-//		Stripe.apiKey = "sk_test_51KfuJYGeeZdvefSoi8pG652yIzsCZQP3FHsKsYAkLZvLdR7fRSXCF94ZqyOmUwWAnjcYQiSPt9m7zdZLN8IVs7UA00KP33kSwU";
+//		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
 //
 //		try {
 //
@@ -428,7 +428,7 @@ return deletedCard.getDeleted();
 //	}
 //	
 //	public String createPaymentIntent () {
-//		Stripe.apiKey = "sk_test_51KfuJYGeeZdvefSoi8pG652yIzsCZQP3FHsKsYAkLZvLdR7fRSXCF94ZqyOmUwWAnjcYQiSPt9m7zdZLN8IVs7UA00KP33kSwU";
+//		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
 //
 //		try {
 //			
