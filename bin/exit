@@ -1,0 +1,107 @@
+[33mcommit 705b11e186e5c467d75e0347c63caa31ac6144c6[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Thu Apr 9 23:57:26 2020 -0300
+
+    heroku
+
+[33mcommit dd50e1341a3c430972ae50adb6f4029c02f588b0[m[33m ([m[1;31mheroku/master[m[33m)[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Sun Apr 5 18:25:49 2020 -0300
+
+    heroku
+
+[33mcommit 86cc23e3dc229721982cc33c6b3d8a1e0d8989c3[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Sun Apr 5 18:05:54 2020 -0300
+
+    tb_regiao
+
+[33mcommit 7e98427b569fcb712d02a02e5c7cc3cf265d6e49[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Sat Apr 4 01:26:39 2020 -0300
+
+    Authorization
+
+[33mcommit f945f94c58338247c44fa6ce2b4d5b6ff48188d2[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Wed Apr 1 19:50:11 2020 -0300
+
+    senhas encriptografadas
+
+[33mcommit 8ceedbcad5d2ea02dcb861eb193cdf55d81c3c6e[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Wed Apr 1 19:34:28 2020 -0300
+
+    encriptografia e JWT
+
+[33mcommit 18f9024fa0840152350ce1c3718fa9123e912b21[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Tue Mar 31 12:46:08 2020 -0300
+
+    implementação JWT - usuario mocado
+
+[33mcommit 6a985a8501a599c343b8fea2ab04bd3a523ada81[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Fri Mar 13 16:19:04 2020 -0300
+
+    Condominio e Imoveis
+
+[33mcommit 81e83b2c9cb0fccbf0f77ac4523f4aa9b5491e1a[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Fri Mar 13 10:44:49 2020 -0300
+
+    API aprovar corretores pendentes
+
+[33mcommit 77f86a90dddcb032edd6573acce477f314e28ca5[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Fri Mar 13 01:39:58 2020 -0300
+
+    Muita coisa
+
+[33mcommit 0ce809d18373afe6b482ecb72fe7a8b09ccef499[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Mon Feb 3 00:06:39 2020 -0300
+
+    alteração de cors
+
+[33mcommit ad6c0f56a275c464e840386f45e52e4b572d121f[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Wed Jan 29 12:56:32 2020 -0300
+
+    cors problem
+
+[33mcommit a5e42e89a518af77c7cdaa59dd339981f7a42fe6[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Sun Jan 26 15:01:26 2020 -0300
+
+    apis de regiao caracteristicas
+
+[33mcommit 49cc0d5600271c1ac6b9e4c6aef0744dda628ec9[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Sat Jan 25 23:48:38 2020 -0300
+
+    primeiras apis prontas
+
+[33mcommit 78d9e78d2c76cc0585839b3e12e60610a0deb256[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Sat Jan 25 22:40:08 2020 -0300
+
+    apis de proprietarios
+
+[33mcommit a3b4c1afadef98c1e69d13b764e8cb6e61419dcc[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Sat Jan 25 22:19:45 2020 -0300
+
+    proprietarios
+
+[33mcommit e050a97298db53899afa0166708bc49e948f26d4[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Sat Jan 25 21:29:08 2020 -0300
+
+    Corretores
+
+[33mcommit b27cfa4416f21ef891454c2cf49ca91f352b75e4[m
+Author: Martacioli <martatacioli1@gmail.com>
+Date:   Sat Jan 25 21:26:06 2020 -0300
+
+    Initial commit
