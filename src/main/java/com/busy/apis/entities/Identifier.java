@@ -19,17 +19,15 @@ uniqueConstraints=
 public class Identifier implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotNull
 	@Id
 	private Long cpf;
+	
 	@NotEmpty
 	private String idCustomer;
-		
-	
 		
 	public Identifier() {
 		

@@ -26,17 +26,13 @@ public class OrderResource {
 	@Autowired
 	private OrderService order;
 	
-	@GetMapping
-	public ResponseEntity<List<Order>> findAll(){
-		List<Order> obj = order.findAll();
-		return ResponseEntity.ok().body(obj);
-	}
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Order> findById(@PathVariable Long id){
 		Order obj = order.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
-
+	
+	//Essa API tem a função de consultar todos os pedidos (orders) de um usuário, passa-se o CPF no path e retorna os dados do pedido
 	@GetMapping(value = "/usuario/{cpf}")
 	public ResponseEntity<List<Order>> findAllByUsuario(@PathVariable Long cpf){
 		List<Order> obj = order.findAllByUsuario(cpf);

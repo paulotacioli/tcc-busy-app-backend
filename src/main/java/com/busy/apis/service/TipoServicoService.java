@@ -14,7 +14,7 @@ public class TipoServicoService {
 	@Autowired
 	private TipoServicoRepository repository;
 
-
+	
 	public List<TipoServico> findAllSelect() {
 		return repository.findAll();
 

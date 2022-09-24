@@ -54,8 +54,6 @@ public class Destino implements Serializable {
 
 	}
 	
-	
-
 	public Destino(@NotEmpty String destino, int ordem, Order order, @NotEmpty String tipoAtividadeRetiradaPrestacao,
 			String nomeContatoRetirada, String observacaoRetirada, String observacaoPrestacao,
 			String tipoServicoPrestacao) {
@@ -69,8 +67,6 @@ public class Destino implements Serializable {
 		this.observacaoPrestacao = observacaoPrestacao;
 		this.tipoServicoPrestacao = tipoServicoPrestacao;
 	}
-
-
 
 	public Long getId() {
 		return id;

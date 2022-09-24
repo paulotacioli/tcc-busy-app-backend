@@ -23,11 +23,6 @@ public class LoginService implements UserDetailsService{
 	private LoginRepository repository;
 	
 	
-	public List<Login> findAll(){
-		return repository.findAll();
-
-	}
-	
 	public Login findByCpf(Long cpf) {
 		Optional<Login> obj = repository.findById(cpf);
 		return obj.orElseThrow(() -> new RecursoNaoEncontradoException(cpf,1));
@@ -43,8 +38,6 @@ public class LoginService implements UserDetailsService{
 	Login login = new Login();
 		login.setUsuario(obj);
 		login.setSenha(obj.getSenha());
-		
-		System.out.println("hola amigos:"+ obj.getAprovado());
 		//login.setAprovado(obj.getAprovado());
 		
 		repository.save(login);
@@ -80,11 +73,8 @@ public class LoginService implements UserDetailsService{
 		    return builder.build();
 		  }
 		
-  
+
 }
 
-	
-	
-//	new BCryptPasswordEncoder().encode
 
 

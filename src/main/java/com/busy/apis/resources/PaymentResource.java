@@ -18,7 +18,6 @@ import com.stripe.model.Card;
 import com.stripe.model.PaymentSource;
 
 
-
 @RestController
 @RequestMapping (value = "/payment")
 public class PaymentResource {

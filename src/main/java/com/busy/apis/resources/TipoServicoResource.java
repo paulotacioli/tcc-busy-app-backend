@@ -19,14 +19,11 @@ public class TipoServicoResource {
 	@Autowired
 	private TipoServicoService service;
 	
-
 	@GetMapping(value = "/select")
 	public ResponseEntity<List<TipoServico>> findAllSelect(){
 		List<TipoServico> obj = service.findAllSelect();
 		return ResponseEntity.ok().body(obj);
 	}
 
-
-	
 
 }

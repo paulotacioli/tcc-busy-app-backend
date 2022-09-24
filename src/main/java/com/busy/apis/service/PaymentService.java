@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.busy.apis.entities.Identifier;
 import com.busy.apis.entities.Order;
 import com.busy.apis.entities.Usuario;
+import com.busy.apis.entities.matrix.paymentSchemas.Bank;
 import com.busy.apis.entities.matrix.paymentSchemas.CardPay;
 import com.busy.apis.repositories.IdentifierRepository;
 import com.busy.apis.repositories.UsuarioRepository;
@@ -20,6 +21,7 @@ import com.stripe.exception.CardException;
 import com.stripe.exception.InvalidRequestException;
 import com.stripe.exception.RateLimitException;
 import com.stripe.exception.StripeException;
+import com.stripe.model.BankAccount;
 import com.stripe.model.Card;
 import com.stripe.model.Customer;
 import com.stripe.model.PaymentIntent;
@@ -65,6 +67,61 @@ public class PaymentService {
 			System.out.println("CARDS"+ cards.toString());
 					return cards.getData();
 
+		} catch (CardException e) {
+		  // Since it's a decline, CardException will be caught
+		  System.out.println("Status is: " + e.getCode());
+		  System.out.println("Message is: " + e.getMessage());
+		} catch (RateLimitException e) {
+			e.printStackTrace();
+		  // Too many requests made to the API too quickly
+		} catch (InvalidRequestException e) {
+			e.printStackTrace();
+
+		  // Invalid parameters were supplied to Stripe's API
+		} catch (AuthenticationException e) {
+			e.printStackTrace();
+
+		  // Authentication with Stripe's API failed
+		  // (maybe you changed API keys recently)
+		
+		} catch (StripeException e) {
+			e.printStackTrace();
+
+		  // Display a very generic error to the user, and maybe send
+		  // yourself an email
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		  // Something else happened, completely unrelated to Stripe
+		}
+		return null;
+		
+	}
+	
+	public String createBankToken(Bank bank) {
+		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
+
+	
+		try {
+
+			Map<String, Object> bankAccount = new HashMap<>();
+			bankAccount.put("country", "BR");
+			bankAccount.put("currency", "brl");
+			bankAccount.put(
+			  "account_holder_name",
+			  bank.getAccount_holder_name()
+			);
+			bankAccount.put(
+			  "account_holder_type",
+			  bank.getAccount_holder_type()
+			);
+			bankAccount.put("routing_number", bank.getRouting_number());
+			bankAccount.put("account_number", bank.getAccount_number());
+			Map<String, Object> params = new HashMap<>();
+			params.put("bank_account", bankAccount);
+
+			Token token = Token.create(params);
+			return token.getId();
 		} catch (CardException e) {
 		  // Since it's a decline, CardException will be caught
 		  System.out.println("Status is: " + e.getCode());
@@ -160,11 +217,8 @@ public class PaymentService {
 		double pagamentoTemp = obj.getPrecoServico()*100;
 		Integer pagamentoInteger = (int) (pagamentoTemp);
 	
-		System.out.println("Pagamento final 3: "+ pagamentoInteger);
-
 
 		try {
-			
 			
 			List<Object> paymentMethodTypes =
 					new ArrayList<>();
@@ -214,8 +268,6 @@ public class PaymentService {
 		return null;
 	}
 	
-	
-	
 	public String createCardToken (CardPay obj) {
 		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
 
@@ -263,7 +315,6 @@ public class PaymentService {
 	return null;
 	}
 	
-
 	public Boolean deleteCard (CardPay obj) {
 		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
 		Identifier objIdentifier = identifierRepository.findByCpf(obj.getCpf());
@@ -320,8 +371,6 @@ return deletedCard.getDeleted();
 	return null;
 	}
 	
-
-
 	public String createCustomer (Usuario obj) {
 
 
@@ -378,106 +427,68 @@ return deletedCard.getDeleted();
 		return null;
 	}
 
+	public String createBankAccount (Bank bank) {
+		
+		Identifier objIdentifier = identifierRepository.findByCpf(bank.getCpf());
+		String bankToken = createBankToken(bank);
+		System.out.println("bankToken"+ bankToken);
 
-//
-//	public String createPaymentMethod (CardPay obj) {
-//		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
-//
-//		try {
-//
-//			Map<String, Object> card = new HashMap<>();
-//			card.put("number", obj.getNumber());
-//			card.put("exp_month", obj.getExp_month());
-//			card.put("exp_year", obj.getExp_year());
-//			card.put("cvc", obj.getCvc());
-//			Map<String, Object> params = new HashMap<>();
-//			params.put("type", "card");
-//			params.put("card", card);
-//
-//			PaymentMethod paymentMethod = PaymentMethod.create(params);
-//			
-//
-//			} catch (CardException e) {
-//			  // Since it's a decline, CardException will be caught
-//			  System.out.println("Status is: " + e.getCode());
-//			  System.out.println("Message is: " + e.getMessage());
-//			} catch (RateLimitException e) {
-//				e.printStackTrace();
-//			  // Too many requests made to the API too quickly
-//			} catch (InvalidRequestException e) {
-//				e.printStackTrace();
-//
-//			  // Invalid parameters were supplied to Stripe's API
-//			} catch (AuthenticationException e) {
-//				e.printStackTrace();
-//
-//			  // Authentication with Stripe's API failed
-//			  // (maybe you changed API keys recently)
-//			
-//			} catch (StripeException e) {
-//				e.printStackTrace();
-//
-//			  // Display a very generic error to the user, and maybe send
-//			  // yourself an email
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//
-//			  // Something else happened, completely unrelated to Stripe
-//			}
-//		return null;
-//	}
-//	
-//	public String createPaymentIntent () {
-//		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
-//
-//		try {
-//			
-//			List<Object> paymentMethodTypes =
-//					new ArrayList<>();
-//					paymentMethodTypes.add("card");
-//					Map<String, Object> params = new HashMap<>();
-//					params.put("amount", 1200);
-//					params.put("confirm", "true");
-//
-//					params.put("currency", "brl");
-//					params.put(
-//					  "payment_method_types",
-//					  paymentMethodTypes
-//					);
-//
-//
-//				PaymentIntent paymentIntent =  PaymentIntent.create(params);
-//				System.out.println("customer: "+ params.toString());
-//				System.out.println("paymentIntent: "+ paymentIntent.toString());
-//				return paymentIntent.getId();
-//			} catch (CardException e) {
-//			  // Since it's a decline, CardException will be caught
-//			  System.out.println("Status is: " + e.getCode());
-//			  System.out.println("Message is: " + e.getMessage());
-//			} catch (RateLimitException e) {
-//				e.printStackTrace();
-//			  // Too many requests made to the API too quickly
-//			} catch (InvalidRequestException e) {
-//				e.printStackTrace();
-//
-//			  // Invalid parameters were supplied to Stripe's API
-//			} catch (AuthenticationException e) {
-//				e.printStackTrace();
-//
-//			  // Authentication with Stripe's API failed
-//			  // (maybe you changed API keys recently)
-//			
-//			} catch (StripeException e) {
-//				e.printStackTrace();
-//
-//			  // Display a very generic error to the user, and maybe send
-//			  // yourself an email
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//
-//			  // Something else happened, completely unrelated to Stripe
-//			}
-//		return null;
-//	}
+		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
+
+		try {
+
+			Map<String, Object> retrieveParams =
+			  new HashMap<>();
+			List<String> expandList = new ArrayList<>();
+			expandList.add("sources");
+			retrieveParams.put("expand", expandList);
+			Customer customer =
+			  Customer.retrieve(
+					  objIdentifier.getIdCustomer(),
+			    retrieveParams,
+			    null
+			  );
+
+			Map<String, Object> params = new HashMap<>();
+			params.put(
+			  "source",
+			  bankToken
+			);
+
+			BankAccount bankAccount =
+			  (BankAccount) customer.getSources().create(
+			    params
+			  );
+
+			} catch (CardException e) {
+			  // Since it's a decline, CardException will be caught
+			  System.out.println("Status is: " + e.getCode());
+			  System.out.println("Message is: " + e.getMessage());
+			} catch (RateLimitException e) {
+				e.printStackTrace();
+			  // Too many requests made to the API too quickly
+			} catch (InvalidRequestException e) {
+				e.printStackTrace();
+
+			  // Invalid parameters were supplied to Stripe's API
+			} catch (AuthenticationException e) {
+				e.printStackTrace();
+
+			  // Authentication with Stripe's API failed
+			  // (maybe you changed API keys recently)
+			
+			} catch (StripeException e) {
+				e.printStackTrace();
+
+			  // Display a very generic error to the user, and maybe send
+			  // yourself an email
+			} catch (Exception e) {
+				e.printStackTrace();
+
+			  // Something else happened, completely unrelated to Stripe
+			}
+		return null;
+	}
+
 
 }

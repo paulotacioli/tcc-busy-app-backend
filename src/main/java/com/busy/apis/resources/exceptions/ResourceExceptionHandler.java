@@ -11,17 +11,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.busy.apis.service.exceptions.CamposObrigatoriosException;
-import com.busy.apis.service.exceptions.ConexaoComPortalException;
-import com.busy.apis.service.exceptions.CorretorNegadoException;
-import com.busy.apis.service.exceptions.CorretorPendenteAprovacaoException;
-import com.busy.apis.service.exceptions.ErroDePermissaoException;
-import com.busy.apis.service.exceptions.ErroDePermissaoNotaException;
 import com.busy.apis.service.exceptions.ErroNaoMapeadoException;
 import com.busy.apis.service.exceptions.OrderAlocadoException;
 import com.busy.apis.service.exceptions.RecursoJaCadastradoException;
 import com.busy.apis.service.exceptions.RecursoNaoEncontradoException;
 import com.busy.apis.service.exceptions.ReferenciaExternaException;
 import com.busy.apis.service.exceptions.SenhasDiferentesException;
+import com.busy.apis.service.exceptions.ServidorNegadoException;
+import com.busy.apis.service.exceptions.ServidorPendenteAprovacaoException;
 import com.busy.apis.service.exceptions.TamanhoMaximoException;
 import com.busy.apis.service.exceptions.UsuarioInvalidoException;
 import com.busy.apis.service.exceptions.ValidacaoTamanhoSenhaException;
@@ -54,7 +51,6 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(status).body(err);
 	}
 	
-	
 	@ExceptionHandler(CamposObrigatoriosException.class)
 	public ResponseEntity<StandardError> ViolationException(CamposObrigatoriosException e, HttpServletRequest request){
 		String error = "Campos obrigatórios devem ser preenchidos.";
@@ -71,22 +67,14 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(status).body(err);
 	}
 	
-	
-	
-	
-	
-	
-	
 	@ExceptionHandler(TamanhoMaximoException.class)
 	public ResponseEntity<StandardError> TamanhoMaximoException(TamanhoMaximoException e, HttpServletRequest request){
-		String error = "Foram atingidas a quantidade m�xima de notas. Conversar com a equipe de TI para expandir a API de distancias do google.";
+		String error = "Foram atingidas a quantidade máxima de destinos que podem ser cadastrados. Essa é uma validação do google, favor diminuir quantidade de destinos e tentar novamente.";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError (Instant.now(), status.value(), error, e.getMessage());
 		return ResponseEntity.status(status).body(err);
 	}
 	
-
-
 	@ExceptionHandler(ErroNaoMapeadoException.class)
 	public ResponseEntity<StandardError> ErroNaoMapeadoException(ErroNaoMapeadoException e, HttpServletRequest request){
 		String error = "Erro n�o mapeado. Favor tentar mais tarde, em caso de persistencia contatar a equipe de TI.";
@@ -97,7 +85,7 @@ public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(HttpMessageNotReadableException.class)
 	public ResponseEntity<StandardError> HttpMessageNotReadableException(HttpMessageNotReadableException e, HttpServletRequest request){
-		String error = "Certifique-se de que campos num�ricos n�o estajam com letras ou caracteres especiais.";
+		String error = "Certifique-se de que campos numéricos não estajam com letras ou caracteres especiais.";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError (Instant.now(), status.value(), error, e.getMessage());
 		return ResponseEntity.status(status).body(err);
@@ -105,7 +93,7 @@ public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(ValidacaoTamanhoSenhaException.class)
 	public ResponseEntity<StandardError> ValidacaoTamanhoSenhaException(ValidacaoTamanhoSenhaException e, HttpServletRequest request){
-		String error = "A senha deve conter no m�ximo 6 caracteres!";
+		String error = "A senha deve conter no máximo 6 caracteres!";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError (Instant.now(), status.value(), error, e.getMessage());
 		return ResponseEntity.status(status).body(err);
@@ -121,23 +109,23 @@ public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(UsuarioInvalidoException.class)
 	public ResponseEntity<StandardError> UsuarioInvalidoException(UsuarioInvalidoException e, HttpServletRequest request){
-		String error = "Senha inv�lida.";
+		String error = "Senha inválida.";
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError (Instant.now(), status.value(), error, e.getMessage());
 		return ResponseEntity.status(status).body(err);
 	}
 	
-	@ExceptionHandler(CorretorPendenteAprovacaoException.class)
-	public ResponseEntity<StandardError> CorretorPendenteAprovacaoException(CorretorPendenteAprovacaoException e, HttpServletRequest request){
-		String error = "Esse CNPJ ainda n�o foi aprovado no sistema. Aguarde contato da administra��o!";
+	@ExceptionHandler(ServidorPendenteAprovacaoException.class)
+	public ResponseEntity<StandardError> ServidorPendenteAprovacaoException(ServidorPendenteAprovacaoException e, HttpServletRequest request){
+		String error = "Esse cadastro como servidor ainda não foi aprovado no nosso sistema!";
 		HttpStatus status = HttpStatus.TOO_EARLY;
 		StandardError err = new StandardError (Instant.now(), status.value(), error, e.getMessage());
 		return ResponseEntity.status(status).body(err);
 	}
 	
-	@ExceptionHandler(CorretorNegadoException.class)
-	public ResponseEntity<StandardError> CorretorNegadoException(CorretorNegadoException e, HttpServletRequest request){
-		String error = "Seu pedido de cadastro de transportadora foi negado. Entre em contato com a administra��o!";
+	@ExceptionHandler(ServidorNegadoException.class)
+	public ResponseEntity<StandardError> ServidorNegadoException(ServidorNegadoException e, HttpServletRequest request){
+		String error = "Seu pedido de cadastro como servidor foi negado. Entre em contato com a administração!";
 		HttpStatus status = HttpStatus.FORBIDDEN;
 		StandardError err = new StandardError (Instant.now(), status.value(), error, e.getMessage());
 		return ResponseEntity.status(status).body(err);
@@ -145,40 +133,12 @@ public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(ViolacaoDeChaveException.class)
 	public ResponseEntity<StandardError> ViolacaoDeChaveException(ViolacaoDeChaveException e, HttpServletRequest request){
-		String error = "Voc� n�o pode excluir um recurso que esta sendo utilizado pelos usu�rios!";
-		HttpStatus status = HttpStatus.FORBIDDEN;
-		StandardError err = new StandardError (Instant.now(), status.value(), error, e.getMessage());
-		return ResponseEntity.status(status).body(err);
-	}
-	
-	
-
-
-	@ExceptionHandler(ErroDePermissaoException.class)
-	public ResponseEntity<StandardError> ErroDePermissaoException(ErroDePermissaoException e, HttpServletRequest request){
-		String error = "Voc� n�o tem permiss�o para essa nota!";
+		String error = "Você não pode excluir um recurso que esta sendo utilizado pelos usuários!";
 		HttpStatus status = HttpStatus.FORBIDDEN;
 		StandardError err = new StandardError (Instant.now(), status.value(), error, e.getMessage());
 		return ResponseEntity.status(status).body(err);
 	}
 	
 
-	@ExceptionHandler(ConexaoComPortalException.class)
-	public ResponseEntity<StandardError> ConexaoComPortalException(ConexaoComPortalException e, HttpServletRequest request){
-		String error = "Conex�o com o Portal do Transportador falhou! Tente novamente.";
-		HttpStatus status = HttpStatus.BAD_GATEWAY;
-		StandardError err = new StandardError (Instant.now(), status.value(), error, e.getMessage());
-		return ResponseEntity.status(status).body(err);
-	}
-	
-	
-	
-	@ExceptionHandler(ErroDePermissaoNotaException.class)
-	public ResponseEntity<StandardError> ErroDePermissaoNotaException(ErroDePermissaoNotaException e, HttpServletRequest request){
-		String error = "Nota inexistente!";
-		HttpStatus status = HttpStatus.BAD_GATEWAY;
-		StandardError err = new StandardError (Instant.now(), status.value(), error, e.getMessage());
-		return ResponseEntity.status(status).body(err);
-	}
 	
 }

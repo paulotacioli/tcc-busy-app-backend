@@ -15,8 +15,6 @@ import javax.validation.ConstraintViolationException;
 import org.apache.commons.math3.util.Precision;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 
 import com.busy.apis.entities.Destino;
@@ -25,9 +23,7 @@ import com.busy.apis.entities.Taxa;
 import com.busy.apis.entities.TipoServico;
 import com.busy.apis.entities.Usuario;
 import com.busy.apis.entities.matrix.MatrixDistanciaGoogle;
-import com.busy.apis.entities.matrix.MenorCaminhoRequest;
 import com.busy.apis.repositories.DestinoRepository;
-import com.busy.apis.repositories.IdentifierRepository;
 import com.busy.apis.repositories.OrderRepository;
 import com.busy.apis.repositories.TaxaRepository;
 import com.busy.apis.repositories.TipoServicoRepository;
@@ -65,14 +61,9 @@ public class OrderService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	@Autowired
-	private IdentifierRepository identifierRepository;
-	@Autowired
 	private PaymentService paymentService;
 	
-	public List<Order> findAll() {
-		return repository.findAll();
-
-	}
+	
 	public Order findById(Long id) {
 		Optional<Order> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new RecursoNaoEncontradoException(id,1));
@@ -82,14 +73,12 @@ public class OrderService {
 		Usuario usuario = new Usuario();
 		usuario.setCpf(cpf);
 		
-		return repository.findAllByUsuario(usuario);
+		return repository.findAllByUsuarioOrderByDataCriacaoDesc(usuario);
 
 	}
 	
-	
-	
 	public PaymentIntent confirmarPagamento (String idPagamento) {
-		Stripe.apiKey = "sk_test_51LNlGMDhqqUuyiSLhj6vNyuWFODkVlTUsE0JbBDTWogIEdX0my43Rlp1qIsMhT1tNoCb9XIRzbz82A0aniNuFiCJ00wettmT3S";
+		Stripe.apiKey = "sk_test_51KfuJYGeeZdvefSoi8pG652yIzsCZQP3FHsKsYAkLZvLdR7fRSXCF94ZqyOmUwWAnjcYQiSPt9m7zdZLN8IVs7UA00KP33kSwU";
 
 		try {
 
@@ -102,8 +91,8 @@ public class OrderService {
 			Map<String, Object> params = new HashMap<>();
 			params.put("payment_method", "pm_card_visa");
 
-			PaymentIntent updatedPaymentIntent =
-			  paymentIntent.confirm(params);
+			PaymentIntent updatedPaymentIntent = paymentIntent.confirm(params);
+			
 			} catch (CardException e) {
 			  // Since it's a decline, CardException will be caught
 			  System.out.println("Status is: " + e.getCode());
@@ -115,7 +104,6 @@ public class OrderService {
 			} catch (AuthenticationException e) {
 			  // Authentication with Stripe's API failed
 			  // (maybe you changed API keys recently)
-			
 			} catch (StripeException e) {
 			  // Display a very generic error to the user, and maybe send
 			  // yourself an email
@@ -185,10 +173,8 @@ public class OrderService {
 		
 	}
 	
-
 	public Double calcularDistancia(List<Destino> obj) {
 		try {
-			int total = 0;
 			String origem = "";
 				System.out.println(obj.toString());
 			for (int i = 0; i < obj.size(); i++) {
@@ -272,16 +258,12 @@ public class OrderService {
 		
 	}
 
-
 	public Order insert(Order obj) {
 		try {
 			List<Destino> objDestino = new ArrayList<Destino>();
-			MenorCaminhoRequest enderecos = new MenorCaminhoRequest();
 			objDestino = obj.getDestino();
 			
-			
-
-		
+	
 			
 			/*Calcular a distancia entre todos os pontos*/
 			double distanciaCalculada = calcularDistancia(objDestino)/1000;
@@ -375,10 +357,10 @@ public class OrderService {
 
 	}
 
-	
-
 	public Order alocar (Order obj) {
 		try {
+			
+//			Nessa função será alocado um usuário nesse pedido como prestador. Observe que a parte de websocket ainda não esta configurada.
 			
 			Optional<Order> objAlocado = repository.findById(obj.getId());
 			if (objAlocado.get().getStatus().equals("Procurando Alocação")) {
@@ -418,35 +400,5 @@ public class OrderService {
 
 	}
 
-
-	public Order delete(Order obj) {
-
-		try {
-			repository.deleteById(obj.getId());
-		} catch (DataIntegrityViolationException e) {
-			e.printStackTrace();
-
-			throw new RecursoNaoEncontradoException("o esse equipamento", obj.getId());
-
-		} catch (EmptyResultDataAccessException e) {
-			e.printStackTrace();
-
-			throw new RecursoNaoEncontradoException("o esse equipamento", obj.getId());
-
-		}  catch (InvalidDataAccessApiUsageException e) {
-			e.printStackTrace();
-
-			throw new CamposObrigatoriosException(null,"O id do recurso a ser deletado deve ser informado.");
-			
-			
-		} catch (RuntimeException e) {
-		
-
-			e.printStackTrace();
-			throw new ErroNaoMapeadoException("");
-		}
-		return obj;
-
-	}
 
 }

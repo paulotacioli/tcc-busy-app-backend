@@ -35,16 +35,7 @@ public class Usuario implements Serializable{
 	private String senhaConfirm;
 	@NotEmpty
 	private String email;
-	@NotNull
-	private Long hierarquia;
-
-	@NotNull
-	private Integer aprovado;
 	
-	
-	
-	
-		
 	public Usuario() {
 		
 	}
@@ -60,15 +51,7 @@ public class Usuario implements Serializable{
 	public String getNomeCompleto() {
 		return nomeCompleto;
 	}
-	
 
-	public Long getHierarquia() {
-		return hierarquia;
-	}
-
-	public void setHierarquia(Long hierarquia) {
-		this.hierarquia = hierarquia;
-	}
 
 	public void setNomeCompleto(String nomeCompleto) {
 		this.nomeCompleto = nomeCompleto;
@@ -114,22 +97,9 @@ public class Usuario implements Serializable{
 		this.email = email;
 	}
 
-	
-
-	public Integer getAprovado() {
-		return aprovado;
-	}
-
-	public void setAprovado(Integer aprovado) {
-		this.aprovado = aprovado;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	
-
-	
 
 }

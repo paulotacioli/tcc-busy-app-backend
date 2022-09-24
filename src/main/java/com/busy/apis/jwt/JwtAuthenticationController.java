@@ -17,8 +17,8 @@ import com.busy.apis.entities.Login;
 import com.busy.apis.entities.Usuario;
 import com.busy.apis.service.LoginService;
 import com.busy.apis.service.UsuarioService;
-import com.busy.apis.service.exceptions.CorretorNegadoException;
-import com.busy.apis.service.exceptions.CorretorPendenteAprovacaoException;
+import com.busy.apis.service.exceptions.ServidorNegadoException;
+import com.busy.apis.service.exceptions.ServidorPendenteAprovacaoException;
 import com.busy.apis.service.exceptions.ErroNaoMapeadoException;
 import com.busy.apis.service.exceptions.UsuarioInvalidoException;
 
