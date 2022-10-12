@@ -31,8 +31,7 @@ public class OrderResource {
 		Order obj = order.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
-	
-	//Essa API tem a função de consultar todos os pedidos (orders) de um usuário, passa-se o CPF no path e retorna os dados do pedido
+
 	@GetMapping(value = "/usuario/{cpf}")
 	public ResponseEntity<List<Order>> findAllByUsuario(@PathVariable Long cpf){
 		List<Order> obj = order.findAllByUsuario(cpf);

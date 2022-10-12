@@ -23,12 +23,18 @@ public class LoginResources {
 	@Autowired
 	private LoginService service;
 	
-	
-	
 	@GetMapping(value = "/{cpf}")
 	public ResponseEntity<Login> findByCpf(@PathVariable Long cpf){
 		Login obj = service.findByCpf(cpf);
 		return ResponseEntity.ok().body(obj);
+	}
+	
+	@PostMapping
+	public ResponseEntity<Login> insert (@RequestBody Login obj){
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{cpf}")
+				  .buildAndExpand(obj).toUri();
+		return ResponseEntity.created(uri).body(obj);
 	}
 	
 	

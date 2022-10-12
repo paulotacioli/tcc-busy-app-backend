@@ -38,6 +38,8 @@ public class LoginService implements UserDetailsService{
 	Login login = new Login();
 		login.setUsuario(obj);
 		login.setSenha(obj.getSenha());
+		
+		System.out.println("hola amigos:"+ obj.getAprovado());
 		//login.setAprovado(obj.getAprovado());
 		
 		repository.save(login);

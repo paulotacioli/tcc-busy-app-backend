@@ -24,17 +24,16 @@ public class UsuarioResource {
 	@Autowired	
 	private UsuarioService service;
 	
-	// Essa API retorna informações do usuário dado o cpf
 	@GetMapping(value = "/{cpf}")
 	public ResponseEntity<Usuario> findById(@Valid @PathVariable Long cpf){
 		Usuario obj = service.findById(cpf);
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	
-	//Fazer inserção de usuário, login e identifier no banco de dados.
 	@PostMapping
 	public ResponseEntity<Usuario> insert (@RequestBody Usuario obj){
+		System.out.println(obj.toString());
+		
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				  .buildAndExpand(obj.getCpf()).toUri();

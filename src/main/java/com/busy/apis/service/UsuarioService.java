@@ -38,8 +38,7 @@ public class UsuarioService {
 	@Autowired
 	private PaymentService paymentService;
 	
-	//Optional: Garante que estamos retornando o objeto no banco de dados, não apenas seus valores//
-
+	
 	public Usuario findById(Long cpf) {
 		//Optional: Garante que estamos retornando o objeto no banco de dados, não apenas seus valores//
 		Optional<Usuario> obj = repository.findById(cpf);
@@ -64,6 +63,7 @@ public class UsuarioService {
 				objEcp = obj;
 				objEcp.setSenha(new BCryptPasswordEncoder().encode(obj.getSenha()));
 				objEcp.setSenhaConfirm(new BCryptPasswordEncoder().encode(obj.getSenhaConfirm()));	
+				obj.setAprovado(obj.getAprovado());
 
 				loginService.saveLoginCorretor(objEcp);
 				repository.save(objEcp);
